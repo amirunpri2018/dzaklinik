@@ -8,7 +8,6 @@
 - Postgresql 10
 - Webserver (nginx/apache)
 - NodeJS 12
-- ReactJs 16
 
 ## Installation
 - Install [Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-maco)
@@ -25,7 +24,7 @@ DB_DATABASE=<nama_database>
 DB_USERNAME=<username_database>
 DB_PASSWORD=<password_database>
 ````
-- Buka brower dan arahkan halaman ke aplikasi dzaklinik misal : `http://localhost/dzaklinik`
+- Buka browser dan arahkan halaman ke aplikasi **DZAKLINIK** misal : `http://localhost/dzaklinik`
  
 ## Features
 Dalam pengembangan

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 
@@ -24,3 +24,6 @@ Auth::routes([
   'verify' => false, // Email Verification Routes...
 ]);
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('rekammedik', function () {
+  return view('registrasi/index');
+})->name('registrasi');

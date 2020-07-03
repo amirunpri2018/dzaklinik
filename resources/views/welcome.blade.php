@@ -85,7 +85,6 @@
                 </div>
                 <div id="example"></div>
                 <div id="registrasi"></div>
-                <script src="{{ mix('js/app.js') }}"></script>
            </div>
         </div>
     </body>

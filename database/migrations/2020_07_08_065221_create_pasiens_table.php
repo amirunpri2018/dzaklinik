@@ -30,6 +30,7 @@ class CreatePasiensTable extends Migration
             $table->unsignedBigInteger('kecamatan_id')->nullable();
             $table->unsignedBigInteger('kelurahan_id')->nullable();
             $table->unsignedBigInteger('pendidikan_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->string('alamat')->nullable();
             $table->string('rtrw')->nullable();
             $table->string('kodepos', 10)->nullable();
@@ -43,6 +44,7 @@ class CreatePasiensTable extends Migration
             $table->foreign('kecamatan_id')->references('id')->on('kecamatan');
             $table->foreign('kelurahan_id')->references('id')->on('kelurahan');
             $table->foreign('pendidikan_id')->references('id')->on('pendidikan');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

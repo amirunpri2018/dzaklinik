@@ -15,7 +15,12 @@ class CreatePasienAyahsTable extends Migration
     {
         Schema::create('pasien_ayah', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('pasien_id');
+            $table->string('nama');
+            $table->string('alamat')->nullable();
+            $table->string('telepon', 20)->nullable();
             $table->timestamps();
+            $table->foreign('pasien_id')->references('id')->on('pasien');
         });
     }
 

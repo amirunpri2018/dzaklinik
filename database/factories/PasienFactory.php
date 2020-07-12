@@ -11,6 +11,7 @@ use App\Pendidikan;
 use App\Provinsi;
 use App\StatusNikah;
 use App\Suku;
+use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(Pasien::class, function (Faker $faker) {
@@ -22,6 +23,7 @@ $factory->define(Pasien::class, function (Faker $faker) {
         'tempat_lahir' => $faker->name(),
         'tanggal_lahir' => $faker->date('Y-m-d'),
         'jenis_kelamin' => $faker->randomElement(['l', 'p']),
+        'warga_negara' => $faker->randomElement(['wni', 'wna']),
         'status_nikah_id' => factory(StatusNikah::class)->create(),
         'suku_id' => factory(Suku::class)->create(),
         'agama_id' => factory(Agama::class)->create(),
@@ -30,6 +32,7 @@ $factory->define(Pasien::class, function (Faker $faker) {
         'kecamatan_id' => factory(Kecamatan::class)->create(),
         'kelurahan_id' => factory(Kelurahan::class)->create(),
         'pendidikan_id' => factory(Pendidikan::class)->create(),
+        'user_id' => factory(User::class)->create(),
         'alamat' => $faker->address,
         'rtrw' => "012",
         'kodepos' => "76125",

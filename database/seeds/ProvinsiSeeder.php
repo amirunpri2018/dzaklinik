@@ -147,12 +147,7 @@ class ProvinsiSeeder extends Seeder
                 "nama_provinsi" => "PAPUA BARAT"
             ]
         ];
-
-        foreach ($provinsi as $prov) {
-            factory(Provinsi::class)->create([
-                'id' => $prov['id'],
-                'nama_provinsi' => $prov['nama_provinsi']
-            ]);
-        }
+        
+        Provinsi::insert($provinsi);
     }
 }

@@ -8,4 +8,5 @@ class Provinsi extends Model
 {
     //
     protected $table = "provinsi";
+    protected $fillable = ['id','nama_provinsi'];
 }

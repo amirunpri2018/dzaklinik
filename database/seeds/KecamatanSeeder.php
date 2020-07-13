@@ -34991,13 +34991,6 @@ class KecamatanSeeder extends Seeder
             ]
         ];
 
-        foreach($kecamatan as $kec) 
-        {
-            factory(Kecamatan::class)->create([
-                "id" => $kec['id'],
-                "kota_id" => $kec['kota_id'],
-                "nama_kecamatan" => $kec['nama_kecamatan']
-            ]);
-        }        
+        Kecamatan::insert($kecamatan);
     }
 }

@@ -2500,12 +2500,7 @@ class KotaSeeder extends Seeder
                 "nama_kota" => "DAIRI"
             ]
         ];
-        foreach ($kota as $k) {
-            factory(Kota::class)->create([
-                'id' => $k['id'],
-                'provinsi_id' => $k['provinsi_id'],
-                'nama_kota' => $k['nama_kota']
-            ]);
-        }
+
+        Kota::insert($kota);
     }
 }

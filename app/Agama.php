@@ -8,4 +8,9 @@ class Agama extends Model
 {
     //
     protected $table = "agama";
+
+    public function pasien()
+    {
+        return $this->hasMany(Pasien::class);
+    }
 }

@@ -12,6 +12,6 @@ $factory->define(PasienIbu::class, function (Faker $faker) {
         'pasien_id' => factory(Pasien::class)->create(),
         'nama' => $faker->name('female'),
         'alamat' => $faker->address,
-        'telepon' => $faker->phoneNumber,
+        'telepon' => $faker->randomDigit,
     ];
 });

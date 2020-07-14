@@ -15,7 +15,7 @@ $factory->define(PasienPasangan::class, function (Faker $faker) {
         'pasien_id' => factory(Pasien::class)->create(),
         'nama' => $faker->name('male'),
         'alamat' => $faker->address,
-        'telepon' => $faker->phoneNumber,
+        'telepon' => $faker->randomDigit,
         'tanggal_lahir' => $faker->date("Y-m-d"),
         'pekerjaan' => $faker->name(),
         'pendidikan_id' => factory(Pendidikan::class)->create(),

@@ -8,4 +8,9 @@ class PasienAyah extends Model
 {
     //
     protected $table = "pasien_ayah";
+
+    public function pasien()
+    {
+        return $this->belongsTo(Pasien::class);
+    }
 }

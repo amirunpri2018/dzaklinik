@@ -13,17 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-  return view('welcome');
-});
-
-
 Auth::routes([
   'register' => false, // Registration Routes...
   'reset' => false, // Password Reset Routes...
   'verify' => false, // Email Verification Routes...
 ]);
+
+Route::get('/', function () {
+  return view('welcome');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('rekammedik', function () {
+
+Route::get('registrasi', function () {
   return view('registrasi/index');
-})->name('registrasi');
+})->name('registrasi')->middleware('auth');

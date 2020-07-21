@@ -15,6 +15,8 @@ class AgamaController extends Controller
     public function index()
     {
         //
+        $agama = Agama::all();
+        return response()->json($agama);
     }
 
     /**

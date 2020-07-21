@@ -23,15 +23,10 @@ class CreatePasienTest extends TestCase
     public function belongsto_pasien()
     {
         $pasien = factory(Pasien::class)->create();
-        $pasienAyah = factory(PasienAyah::class)->create([
-            'pasien_id' => $pasien->id
-        ]);
-        $pasienIbu = factory(PasienIbu::class)->create([
-            'pasien_id' => $pasien->id
-        ]);
-        $pasienPasangan = factory(PasienPasangan::class)->create([
-            'pasien_id' => $pasien->id
-        ]);
+        $pasienId = ['pasien_id' => $pasien->id];
+        $pasienAyah = factory(PasienAyah::class)->create($pasienId);
+        $pasienIbu = factory(PasienIbu::class)->create($pasienId);
+        $pasienPasangan = factory(PasienPasangan::class)->create($pasienId);
 
         $this->assertTrue($pasien->provinsi instanceof Provinsi);
         $this->assertTrue($pasien->kota instanceof Kota);

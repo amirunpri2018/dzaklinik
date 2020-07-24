@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CreatePasien from "../pasien/CreatePasien";
+import TabPasien from "../pasien/TabPasien";
 import { Col, Card, Form, InputGroup, Button, Modal } from "react-bootstrap";
 
 class CreateRegister extends Component {
@@ -81,7 +81,7 @@ class CreateRegister extends Component {
                         <Modal.Title>Tambah Pasien</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <CreatePasien />
+                        <TabPasien />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button

@@ -1,23 +1,36 @@
 import React, { Component } from "react";
-import { Tabs, Tab } from "react-bootstrap";
+import { Form, Row, Col, Container } from "react-bootstrap";
 
 class CreatePasien extends Component {
     render() {
         return (
-            <Tabs defaultActiveKey="pasien" id="tabPasien">
-                <Tab eventKey="pasien" title="Data Diri Pasien">
-                    <div>Form Data diri pasien</div>
-                </Tab>
-                <Tab eventKey="pasanganPasien" title="Data Pasangan Pasien">
-                    <div>Form Data pasangan pasien</div>
-                </Tab>
-                <Tab eventKey="ayahPasien" title="Data Ayah Pasien">
-                    <div>Form Data ayah pasien</div>
-                </Tab>
-                <Tab eventKey="ibuPasien" title="Data Ibu Pasien">
-                    <div>Form Data Ibu pasien</div>
-                </Tab>
-            </Tabs>
+            <Container className="m-2">
+                <Form>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm={2}>
+                            No Rekam Medik
+                        </Form.Label>
+                        <Col sm={4}>
+                            <Form.Control
+                                type="email"
+                                placeholder="email"
+                                id="no_rekam_medik"
+                            />
+                        </Col>
+                        <Form.Label column sm={2}>
+                            Nama Pasien
+                        </Form.Label>
+                        <Col sm={4}>
+                            <Form.Control
+                                type="text"
+                                placeholder="Nama Pasien"
+                                id="nama_pasien"
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}></Form.Group>
+                </Form>
+            </Container>
         );
     }
 }

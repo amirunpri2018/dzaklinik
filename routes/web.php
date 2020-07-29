@@ -1,5 +1,7 @@
 <?php
 
+use App\Agama;
+use App\Http\Resources\Agama as ResourcesAgama;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +30,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('registrasi', function () {
   return view('registrasi/index');
 })->name('registrasi')->middleware('auth');
+
+Route::group(['middleware' => ['auth']], function () {
+  Route::resource('/agama', 'AgamaController');    
+});

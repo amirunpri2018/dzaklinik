@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Agama;
+use App\Http\Resources\Agama as ResourcesAgama;
+use App\Http\Resources\AgamaCollection;
 use Illuminate\Http\Request;
 
 class AgamaController extends Controller
@@ -16,7 +18,7 @@ class AgamaController extends Controller
     {
         //
         $agama = Agama::all();
-        return response()->json($agama);
+        return new AgamaCollection($agama);
     }
 
     /**

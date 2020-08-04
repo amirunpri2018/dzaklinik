@@ -10,7 +10,7 @@ class Provinsi extends Model
     protected $table = "provinsi";
     protected $fillable = ['id', 'nama_provinsi'];
 
-    public function Kota()
+    public function kota()
     {
         return $this->hasMany(Kota::class);
     }

@@ -1,9 +1,5 @@
 <?php
 
-use App\Agama;
-use App\Http\Resources\Agama as ResourcesAgama;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,15 +21,15 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'HomeController@index')->name('home');
   Route::resource('/agama', 'AgamaController');    
   Route::resource('/provinsi','ProvinsiController');
+  Route::get('/provinsi/{provinsi}/kota', 'ProvinsiController@kota')->name('provinsi.kota');
   Route::resource('/kota','KotaController')->parameters([
     'kota' => 'kota'
   ]);
-    Route::get('registrasi', function () {
+  Route::get('registrasi', function () {
     return view('registrasi/index');
   })->name('registrasi');
 });

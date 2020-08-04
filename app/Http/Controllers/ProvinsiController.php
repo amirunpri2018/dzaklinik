@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Provinsi as ResourcesProvinsi;
 use App\Http\Resources\ProvinsiCollection;
+use App\Http\Resources\ProvinsiKota;
+use App\Http\Resources\ProvinsiKotaCollection;
+use App\Kota;
 use App\Provinsi;
 use Illuminate\Http\Request;
 
@@ -53,6 +56,18 @@ class ProvinsiController extends Controller
     {
         //
         return new ResourcesProvinsi($provinsi);
+    }
+
+    /**
+     * Display kota berdasarkan provinsi yang di pilih
+     *
+     * @param  \App\Provinsi  $provinsi
+     * @return \Illuminate\Http\Response
+     */
+    public function kota(Provinsi $provinsi)
+    {
+        //
+        return new ProvinsiKota($provinsi);
     }
 
     /**

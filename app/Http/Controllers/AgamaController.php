@@ -51,6 +51,7 @@ class AgamaController extends Controller
     public function show(Agama $agama)
     {
         //
+        return new ResourcesAgama($agama);
     }
 
     /**

@@ -16,14 +16,7 @@ class Agama extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nama' => $this->nama_agama,
-        ];
-    }
-
-    public function with($request)
-    {
-        return [
-            'status' => 'OK'
+            'agama' => $this->nama_agama,
         ];
     }
 }

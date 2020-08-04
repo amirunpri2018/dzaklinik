@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Provinsi as ResourcesProvinsi;
+use App\Http\Resources\ProvinsiCollection;
 use App\Provinsi;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,9 @@ class ProvinsiController extends Controller
     public function index()
     {
         //
+        $provinsi = Provinsi::all();
+
+        return new ProvinsiCollection($provinsi);
     }
 
     /**
@@ -47,6 +52,7 @@ class ProvinsiController extends Controller
     public function show(Provinsi $provinsi)
     {
         //
+        return new ResourcesProvinsi($provinsi);
     }
 
     /**

@@ -25,12 +25,11 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('registrasi', function () {
-  return view('registrasi/index');
-})->name('registrasi')->middleware('auth');
 
 Route::group(['middleware' => ['auth']], function () {
+  Route::get('/home', 'HomeController@index')->name('home');
   Route::resource('/agama', 'AgamaController');    
+  Route::get('registrasi', function () {
+    return view('registrasi/index');
+  })->name('registrasi');
 });

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Kota as ResourcesKota;
+use App\Http\Resources\KotaCollection;
 use App\Kota;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,9 @@ class KotaController extends Controller
     public function index()
     {
         //
+        $kota = Kota::paginate(10);
+
+        return new KotaCollection($kota);
     }
 
     /**
@@ -47,6 +52,7 @@ class KotaController extends Controller
     public function show(Kota $kota)
     {
         //
+        return new ResourcesKota($kota);
     }
 
     /**

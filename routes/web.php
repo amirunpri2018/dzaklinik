@@ -21,6 +21,9 @@ Route::get('/', function () {
   return view('welcome');
 });
 
+Route::resource('/kecamatan', 'KecamatanController');
+Route::get('/kota/{kota}/kecamatan', 'KecamatanController@kecamatan')->name('kota.kecamatan');
+
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'HomeController@index')->name('home');
   Route::resource('/agama', 'AgamaController');    

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Provinsi as ResourcesProvinsi;
 use App\Http\Resources\ProvinsiCollection;
 use App\Http\Resources\ProvinsiKota;
-use App\Http\Resources\ProvinsiKotaCollection;
 use App\Kota;
 use App\Provinsi;
 use Illuminate\Http\Request;

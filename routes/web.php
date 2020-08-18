@@ -27,6 +27,7 @@ Route::get('/kecamatan/{kecamatan}/kelurahan', 'KecamatanController@kelurahan')
 Route::resource('/bahasa', 'BahasaController');
 Route::resource('/pendidikan', 'PendidikanController');
 Route::resource('/statusnikah', 'StatusNikahController');
+Route::resource('/suku', 'SukuController');
 
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'HomeController@index')->name('home');

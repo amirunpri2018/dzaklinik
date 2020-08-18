@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Suku as ResourcesSuku;
+use App\Http\Resources\SukuCollection;
 use App\Suku;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,9 @@ class SukuController extends Controller
     public function index()
     {
         //
+        $suku = Suku::paginate(10);
+
+        return new SukuCollection($suku);
     }
 
     /**
@@ -47,6 +52,7 @@ class SukuController extends Controller
     public function show(Suku $suku)
     {
         //
+        return new ResourcesSuku($suku);
     }
 
     /**

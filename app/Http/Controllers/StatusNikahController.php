@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StatusNikahCollection;
 use App\StatusNikah;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,7 @@ class StatusNikahController extends Controller
     public function index()
     {
         //
+        return new StatusNikahCollection(StatusNikah::all());
     }
 
     /**

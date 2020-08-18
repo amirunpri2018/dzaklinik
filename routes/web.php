@@ -22,9 +22,10 @@ Route::get('/', function () {
 });
 
 Route::resource('/kelurahan', 'KelurahanController');
-Route::resource('/bahasa', 'BahasaController');
 Route::get('/kecamatan/{kecamatan}/kelurahan', 'KecamatanController@kelurahan')
       ->name('kecamatan.kelurahan');
+Route::resource('/bahasa', 'BahasaController');
+Route::resource('/pendidikan', 'PendidikanController');
 
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'HomeController@index')->name('home');

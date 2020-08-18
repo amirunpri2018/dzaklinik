@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Pendidikan as ResourcesPendidikan;
+use App\Http\Resources\PendidikanCollection;
 use App\Pendidikan;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,9 @@ class PendidikanController extends Controller
     public function index()
     {
         //
+        $pendidikan = Pendidikan::paginate(10);
+
+        return new PendidikanCollection($pendidikan);
     }
 
     /**
@@ -47,6 +52,7 @@ class PendidikanController extends Controller
     public function show(Pendidikan $pendidikan)
     {
         //
+        return new ResourcesPendidikan($pendidikan);
     }
 
     /**

@@ -21,8 +21,9 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Route::resource('/kecamatan', 'KecamatanController');
-Route::get('/kota/{kota}/kecamatan', 'KecamatanController@kecamatan')->name('kota.kecamatan');
+Route::resource('/kelurahan', 'KelurahanController');
+Route::get('/kecamatan/{kecamatan}/kelurahan', 'KecamatanController@kelurahan')
+      ->name('kecamatan.kelurahan');
 
 Route::group(['middleware' => ['auth']], function () {
   Route::get('/home', 'HomeController@index')->name('home');
@@ -32,7 +33,11 @@ Route::group(['middleware' => ['auth']], function () {
   Route::resource('/kota','KotaController')->parameters([
     'kota' => 'kota'
   ]);
+  Route::get('/kota/{kota}/kecamatan', 'KecamatanController@kecamatan')->name('kota.kecamatan');
+  Route::resource('/kecamatan', 'KecamatanController');
+
   Route::get('registrasi', function () {
     return view('registrasi/index');
   })->name('registrasi');
+
 });

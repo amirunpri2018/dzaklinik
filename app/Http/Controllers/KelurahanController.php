@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Kelurahan as ResourcesKelurahan;
+use App\Http\Resources\KelurahanCollection;
 use App\Kelurahan;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,9 @@ class KelurahanController extends Controller
     public function index()
     {
         //
+        $kelurahan = Kelurahan::paginate(10);
+
+        return new KelurahanCollection($kelurahan);
     }
 
     /**
@@ -47,6 +52,7 @@ class KelurahanController extends Controller
     public function show(Kelurahan $kelurahan)
     {
         //
+        return new ResourcesKelurahan($kelurahan);
     }
 
     /**

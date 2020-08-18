@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Kecamatan as ResourcesKecamatan;
 use App\Http\Resources\KecamatanCollection;
+use App\Http\Resources\KecamatanKelurahan;
 use App\Http\Resources\Kota as ResourcesKota;
 use App\Http\Resources\KotaKecamatan;
 use App\Kecamatan;
@@ -28,13 +29,23 @@ class KecamatanController extends Controller
     /**
      * Display kecamatan berdasarkan kota yang di pilih
      *
-     * @param  \App\Provinsi  $provinsi
+     * @param  \App\Kota  $kota
      * @return \Illuminate\Http\Response
      */
     public function kecamatan(Kota $kota)
     {
         //
         return new KotaKecamatan($kota);
+    }
+
+    /**
+     * Display kelurahan's kecamatan
+     * @param \App\Kecamatan $kecamatan
+     * @return \Illuminate\Http\Response
+     */
+    public function kelurahan(Kecamatan $kecamatan)
+    {
+        return new KecamatanKelurahan($kecamatan);
     }
 
     /**

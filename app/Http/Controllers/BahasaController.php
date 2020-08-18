@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Bahasa;
+use App\Http\Resources\Bahasa as ResourcesBahasa;
+use App\Http\Resources\BahasaCollection;
 use Illuminate\Http\Request;
 
 class BahasaController extends Controller
@@ -15,6 +17,9 @@ class BahasaController extends Controller
     public function index()
     {
         //
+        $bahasa = Bahasa::paginate(10);
+
+        return new BahasaCollection($bahasa);
     }
 
     /**
@@ -47,6 +52,7 @@ class BahasaController extends Controller
     public function show(Bahasa $bahasa)
     {
         //
+        return new ResourcesBahasa($bahasa);
     }
 
     /**

@@ -22,6 +22,7 @@ Route::get('/', function () {
 });
 
 Route::resource('/kelurahan', 'KelurahanController');
+Route::resource('/bahasa', 'BahasaController');
 Route::get('/kecamatan/{kecamatan}/kelurahan', 'KecamatanController@kelurahan')
       ->name('kecamatan.kelurahan');
 

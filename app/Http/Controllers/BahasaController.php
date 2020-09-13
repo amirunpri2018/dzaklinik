@@ -17,9 +17,8 @@ class BahasaController extends Controller
     public function index()
     {
         //
-        $bahasa = Bahasa::paginate(10);
 
-        return new BahasaCollection($bahasa);
+        return new BahasaCollection(Bahasa::all());
     }
 
     /**

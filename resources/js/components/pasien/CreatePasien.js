@@ -1,8 +1,95 @@
 import React, { Component } from "react";
 import { Form, Row, Col, Container } from "react-bootstrap";
+import Axios from "axios";
 
 class CreatePasien extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataStatus: [],
+            dataAgama: [],
+            dataPendidikan: [],
+            dataSuku: [],
+            dataBahasa: [],
+            dataProvinsi: []
+        };
+    }
+
+    componentDidMount() {
+        Axios.get("/statusnikah").then(response => {
+            this.setState({
+                dataStatus: response.data.data
+            });
+        });
+
+        Axios.get("/agama").then(response => {
+            this.setState({
+                dataAgama: response.data.data
+            });
+        });
+
+        Axios.get("/pendidikan").then(response => {
+            this.setState({
+                dataPendidikan: response.data.data
+            });
+        });
+
+        Axios.get("/suku").then(response => {
+            this.setState({
+                dataSuku: response.data.data
+            });
+        });
+
+        Axios.get("/provinsi").then(response => {
+            this.setState({
+                dataProvinsi: response.data.data
+            });
+        });
+
+        Axios.get("/bahasa").then(response => {
+            this.setState({
+                dataBahasa: response.data.data
+            });
+        });
+    }
+
     render() {
+        const statusNikahOption = this.state.dataStatus.map(item => (
+            <option value={item.id} key={item.id}>
+                {item.status}
+            </option>
+        ));
+
+        const agamaOption = this.state.dataAgama.map(item => (
+            <option value={item.id} key={item.id}>
+                {item.agama}
+            </option>
+        ));
+
+        const bahasaOption = this.state.dataBahasa.map(item => (
+            <option value={item.id} key={item.id}>
+                {item.bahasa}
+            </option>
+        ));
+
+        const pendidikanOption = this.state.dataPendidikan.map(item => (
+            <option value={item.id} key={item.id}>
+                {item.pendidikan}
+            </option>
+        ));
+
+        const sukuOption = this.state.dataSuku.map(item => (
+            <option value={item.id} key={item.id}>
+                {item.suku}
+            </option>
+        ));
+
+        const provinsiOption = this.state.dataProvinsi.map(item => (
+            <option value={item.id} key={item.id}>
+                {item.provinsi}
+            </option>
+        ));
+
         return (
             <Container className="m-2">
                 <Form>
@@ -64,6 +151,7 @@ class CreatePasien extends Component {
                         <Col sm={4}>
                             <Form.Control as="select" id="status_id">
                                 <option>Pilih Status</option>
+                                {statusNikahOption}
                             </Form.Control>
                         </Col>
                         <Form.Label column sm={2}>
@@ -72,6 +160,7 @@ class CreatePasien extends Component {
                         <Col sm={4}>
                             <Form.Control as="select" id="agama_id">
                                 <option>Pilih Agama</option>
+                                {agamaOption}
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -92,6 +181,7 @@ class CreatePasien extends Component {
                         <Col sm={4}>
                             <Form.Control as="select" id="pendidikan_id">
                                 <option>Pilih Pendidikan</option>
+                                {pendidikanOption}
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -103,6 +193,7 @@ class CreatePasien extends Component {
                         <Col sm={4}>
                             <Form.Control as="select" id="suku_id">
                                 <option value="">Pilih Suku</option>
+                                {sukuOption}
                             </Form.Control>
                         </Col>
                         <Form.Label column sm={2}>
@@ -111,6 +202,7 @@ class CreatePasien extends Component {
                         <Col sm={4}>
                             <Form.Control as="select" id="bahasa_id">
                                 <option>Pilih Bahasa</option>
+                                {bahasaOption}
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -124,6 +216,7 @@ class CreatePasien extends Component {
                             <Col sm={4}>
                                 <Form.Control as="select" id="provinsi_id">
                                     <option>Pilih Provinsi</option>
+                                    {provinsiOption}
                                 </Form.Control>
                             </Col>
                             <Form.Label column sm={2}>

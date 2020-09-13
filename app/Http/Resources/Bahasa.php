@@ -16,7 +16,7 @@ class Bahasa extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nama' => $this->nama_bahasa
+            'bahasa' => $this->nama_bahasa
         ];
     }
 }

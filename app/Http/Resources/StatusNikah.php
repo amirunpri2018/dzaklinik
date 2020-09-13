@@ -14,6 +14,9 @@ class StatusNikah extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'status' => $this->status_nikah
+        ];
     }
 }

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import TabPasien from "../pasien/TabPasien";
 import { Col, Card, Form, InputGroup, Button, Modal } from "react-bootstrap";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class CreateRegister extends Component {
     constructor() {
@@ -30,12 +32,12 @@ class CreateRegister extends Component {
                                     Tanggal
                                 </Form.Label>
                                 <Col sm={9}>
-                                    <Form.Control
-                                        type="text"
-                                        name="tanggal"
-                                        id="tanggal"
-                                        placeholder="Tanggal Daftar"
-                                    ></Form.Control>
+                                    <ReactDatePicker
+                                        peekNextMonth
+                                        showMonthDropdown
+                                        showYearDropdown
+                                        dropdownMode="select"
+                                    />
                                 </Col>
                             </Form.Group>
                             <Form.Group className="row">

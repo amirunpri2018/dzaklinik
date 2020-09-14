@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Form, Row, Col, Container } from "react-bootstrap";
 import Axios from "axios";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class CreatePasien extends Component {
     constructor(props) {
@@ -11,7 +13,8 @@ class CreatePasien extends Component {
             dataPendidikan: [],
             dataSuku: [],
             dataBahasa: [],
-            dataProvinsi: []
+            dataProvinsi: [],
+            tanggalLahir: new Date()
         };
     }
 
@@ -52,6 +55,10 @@ class CreatePasien extends Component {
             });
         });
     }
+
+    tanggalLahirChangeHander = date => {
+        this.setState({ tanggalLahir: date });
+    };
 
     render() {
         const statusNikahOption = this.state.dataStatus.map(item => (
@@ -134,13 +141,42 @@ class CreatePasien extends Component {
                                 inline
                                 label="Laki-laki"
                                 type="radio"
+                                name="jenis_kelamin"
                                 id="l"
                             />
                             <Form.Check
                                 inline
                                 label="Perempuan"
                                 type="radio"
+                                name="jenis_kelamin"
                                 id="p"
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm={2}>
+                            Tempat Lahir
+                        </Form.Label>
+                        <Col sm={4}>
+                            <Form.Control
+                                type="text"
+                                placeholder="Tempat Lahir Pasien"
+                                id="tempat_lahir"
+                            />
+                        </Col>
+                        <Form.Label column sm={2}>
+                            Tanggal Lahir
+                        </Form.Label>
+                        <Col sm={4}>
+                            <ReactDatePicker
+                                selected={this.state.tanggalLahir}
+                                onChange={date =>
+                                    this.tanggalLahirChangeHander(date)
+                                }
+                                showMonthDropdown
+                                showYearDropdown
+                                dateFormat="dd-mm-yyyy"
+                                dropdownMode="select"
                             />
                         </Col>
                     </Form.Group>

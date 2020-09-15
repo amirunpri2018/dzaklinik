@@ -16,7 +16,7 @@ class Kelurahan extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nama' => $this->nama_kelurahan
+            'kelurahan' => $this->nama_kelurahan
         ];
     }
 }

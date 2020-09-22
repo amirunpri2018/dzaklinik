@@ -17,7 +17,24 @@ class CreatePasien extends Component {
             dataKota: [],
             dataKecamatan: [],
             dataKelurahan: [],
-            tanggalLahir: new Date()
+            nik: "",
+            nama_pasien: "",
+            tempat_lahir: "",
+            tanggal_lahir: new Date(),
+            jenis_kelamin: "",
+            warga_negara: "",
+            status_nikah_id: "",
+            suku_id: "",
+            agama_id: "",
+            provinsi_id: "",
+            kota_id: "",
+            kecamatan_id: "",
+            kelurahan_id: "",
+            pendidikan_id: "",
+            alamat: "",
+            rtrw: "",
+            kodepos: "",
+            email: ""
         };
     }
 
@@ -60,7 +77,7 @@ class CreatePasien extends Component {
     }
 
     tanggalLahirChangeHander = date => {
-        this.setState({ tanggalLahir: date });
+        this.setState({ tanggal_lahir: date });
     };
 
     provinsiChangedHandler = e => {
@@ -80,6 +97,11 @@ class CreatePasien extends Component {
             this.setState({ dataKelurahan: response.data.data.kelurahan });
         });
     };
+
+    inputChangedHandler = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
+
     render() {
         const statusNikahOption = this.state.dataStatus.map(item => (
             <option value={item.id} key={item.id}>
@@ -147,8 +169,9 @@ class CreatePasien extends Component {
                                 <Col sm={4}>
                                     <Form.Control
                                         type="text"
-                                        placeholder="No Rekam Medik"
+                                        placeholder="Akan di isi Oleh Sistem"
                                         id="no_rekam_medik"
+                                        disabled
                                     />
                                 </Col>
                                 <Form.Label column sm={2}>
@@ -159,6 +182,9 @@ class CreatePasien extends Component {
                                         type="text"
                                         placeholder="NIK"
                                         id="nik"
+                                        name="nik"
+                                        onChange={this.inputChangedHandler}
+                                        value={this.state.nik}
                                     />
                                 </Col>
                             </Form.Group>
@@ -171,6 +197,9 @@ class CreatePasien extends Component {
                                         type="text"
                                         placeholder="Nama Pasien"
                                         id="nama_pasien"
+                                        name="nama_pasien"
+                                        onChange={this.inputChangedHandler}
+                                        value={this.state.nama_pasien}
                                     />
                                 </Col>
                                 <Form.Label column sm={2}>
@@ -183,6 +212,13 @@ class CreatePasien extends Component {
                                         type="radio"
                                         name="jenis_kelamin"
                                         id="l"
+                                        value="l"
+                                        onChange={this.inputChangedHandler}
+                                        checked={
+                                            this.state.jenis_kelamin == "l"
+                                                ? true
+                                                : false
+                                        }
                                     />
                                     <Form.Check
                                         inline
@@ -190,6 +226,13 @@ class CreatePasien extends Component {
                                         type="radio"
                                         name="jenis_kelamin"
                                         id="p"
+                                        value="p"
+                                        onChange={this.inputChangedHandler}
+                                        checked={
+                                            this.state.jenis_kelamin == "p"
+                                                ? true
+                                                : false
+                                        }
                                     />
                                 </Col>
                             </Form.Group>
@@ -202,6 +245,9 @@ class CreatePasien extends Component {
                                         type="text"
                                         placeholder="Tempat Lahir Pasien"
                                         id="tempat_lahir"
+                                        name="tempat_lahir"
+                                        onChange={this.inputChangedHandler}
+                                        value={this.state.tempat_lahir}
                                     />
                                 </Col>
                                 <Form.Label column sm={2}>
@@ -209,13 +255,13 @@ class CreatePasien extends Component {
                                 </Form.Label>
                                 <Col sm={4}>
                                     <ReactDatePicker
-                                        selected={this.state.tanggalLahir}
+                                        selected={this.state.tanggal_lahir}
                                         onChange={date =>
                                             this.tanggalLahirChangeHander(date)
                                         }
                                         showMonthDropdown
                                         showYearDropdown
-                                        dateFormat="dd-mm-yyyy"
+                                        dateFormat="dd-MM-yyyy"
                                         dropdownMode="select"
                                     />
                                 </Col>
@@ -225,7 +271,13 @@ class CreatePasien extends Component {
                                     Status
                                 </Form.Label>
                                 <Col sm={4}>
-                                    <Form.Control as="select" id="status_id">
+                                    <Form.Control
+                                        as="select"
+                                        id="status_id"
+                                        name="status_nikah_id"
+                                        onChange={this.inputChangedHandler}
+                                        value={this.state.status_nikah_id}
+                                    >
                                         <option>Pilih Status</option>
                                         {statusNikahOption}
                                     </Form.Control>
@@ -234,7 +286,13 @@ class CreatePasien extends Component {
                                     Agama
                                 </Form.Label>
                                 <Col sm={4}>
-                                    <Form.Control as="select" id="agama_id">
+                                    <Form.Control
+                                        as="select"
+                                        name="agama_id"
+                                        id="agama_id"
+                                        value={this.state.agama_id}
+                                        onChange={this.inputChangedHandler}
+                                    >
                                         <option>Pilih Agama</option>
                                         {agamaOption}
                                     </Form.Control>
@@ -246,7 +304,13 @@ class CreatePasien extends Component {
                                     Kewarganegaraan
                                 </Form.Label>
                                 <Col sm={4}>
-                                    <Form.Control as="select" id="warga_negara">
+                                    <Form.Control
+                                        as="select"
+                                        id="warga_negara"
+                                        name="warga_negara"
+                                        value={this.state.warga_negara}
+                                        onChange={this.inputChangedHandler}
+                                    >
                                         <option value="wni">WNI</option>
                                         <option value="wna">WNA</option>
                                     </Form.Control>
@@ -258,6 +322,9 @@ class CreatePasien extends Component {
                                     <Form.Control
                                         as="select"
                                         id="pendidikan_id"
+                                        name="pendidikan_id"
+                                        value={this.state.pendidikan_id}
+                                        onChange={this.inputChangedHandler}
                                     >
                                         <option>Pilih Pendidikan</option>
                                         {pendidikanOption}
@@ -270,7 +337,13 @@ class CreatePasien extends Component {
                                     Suku
                                 </Form.Label>
                                 <Col sm={4}>
-                                    <Form.Control as="select" id="suku_id">
+                                    <Form.Control
+                                        as="select"
+                                        id="suku_id"
+                                        name="suku_id"
+                                        value={this.state.suku_id}
+                                        onChange={this.inputChangedHandler}
+                                    >
                                         <option value="">Pilih Suku</option>
                                         {sukuOption}
                                     </Form.Control>
@@ -279,7 +352,13 @@ class CreatePasien extends Component {
                                     Bahasa
                                 </Form.Label>
                                 <Col sm={4}>
-                                    <Form.Control as="select" id="bahasa_id">
+                                    <Form.Control
+                                        as="select"
+                                        id="bahasa_id"
+                                        name="bahasa_id"
+                                        value={this.state.bahasa_id}
+                                        onChange={this.inputChangedHandler}
+                                    >
                                         <option>Pilih Bahasa</option>
                                         {bahasaOption}
                                     </Form.Control>
@@ -298,9 +377,12 @@ class CreatePasien extends Component {
                                         <Form.Control
                                             as="select"
                                             id="provinsi_id"
-                                            onChange={
-                                                this.provinsiChangedHandler
-                                            }
+                                            name="provinsi_id"
+                                            value={this.state.provinsi_id}
+                                            onChange={e => {
+                                                this.provinsiChangedHandler(e);
+                                                this.inputChangedHandler(e);
+                                            }}
                                         >
                                             <option>Pilih Provinsi</option>
                                             {provinsiOption}
@@ -313,7 +395,12 @@ class CreatePasien extends Component {
                                         <Form.Control
                                             as="select"
                                             id="kota_id"
-                                            onChange={this.kotaChangedHandler}
+                                            name="kota_id"
+                                            value={this.state.kota_id}
+                                            onChange={e => {
+                                                this.kotaChangedHandler(e);
+                                                this.inputChangedHandler(e);
+                                            }}
                                         >
                                             <option>Pilih Kota</option>
                                             {kotaOption}
@@ -329,9 +416,12 @@ class CreatePasien extends Component {
                                         <Form.Control
                                             as="select"
                                             id="kecamatan_id"
-                                            onChange={
-                                                this.kecamatanChangedHandler
-                                            }
+                                            name="kecamatan_id"
+                                            value={this.state.kecamatan_id}
+                                            onChange={e => {
+                                                this.kecamatanChangedHandler(e);
+                                                this.inputChangedHandler(e);
+                                            }}
                                         >
                                             <option>Pilih Kecamatan</option>
                                             {kecamatanOption}
@@ -344,6 +434,9 @@ class CreatePasien extends Component {
                                         <Form.Control
                                             as="select"
                                             id="kelurahan_id"
+                                            name="kelurahan_id"
+                                            value={this.state.kelurahan_id}
+                                            onChange={this.inputChangedHandler}
                                         >
                                             <option>Pilih Kelurahan</option>
                                             {kelurahanOption}
@@ -356,13 +449,23 @@ class CreatePasien extends Component {
                                         Jalan
                                     </Form.Label>
                                     <Col sm={4}>
-                                        <Form.Control id="alamat" />
+                                        <Form.Control
+                                            id="alamat"
+                                            name="alamat"
+                                            onChange={this.inputChangedHandler}
+                                            value={this.state.alamat}
+                                        />
                                     </Col>
                                     <Form.Label column sm={2}>
                                         RT/RW
                                     </Form.Label>
                                     <Col sm={4}>
-                                        <Form.Control id="kelurahan_id" />
+                                        <Form.Control
+                                            id="rtrw"
+                                            name="rtrw"
+                                            onChange={this.inputChangedHandler}
+                                            value={this.state.rtrw}
+                                        />
                                     </Col>
                                 </Form.Group>
 
@@ -371,13 +474,23 @@ class CreatePasien extends Component {
                                         Kode Pos
                                     </Form.Label>
                                     <Col sm={4}>
-                                        <Form.Control id="kodepos" />
+                                        <Form.Control
+                                            id="kodepos"
+                                            name="kodepos"
+                                            onChange={this.inputChangedHandler}
+                                            value={this.state.kodepos}
+                                        />
                                     </Col>
                                     <Form.Label column sm={2}>
                                         Email
                                     </Form.Label>
                                     <Col sm={4}>
-                                        <Form.Control id="email" />
+                                        <Form.Control
+                                            id="email"
+                                            name="email"
+                                            onChange={this.inputChangedHandler}
+                                            value={this.state.email}
+                                        />
                                     </Col>
                                 </Form.Group>
                             </fieldset>

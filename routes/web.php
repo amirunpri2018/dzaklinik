@@ -21,26 +21,28 @@ Route::get('/', function () {
   return view('welcome');
 });
 
+
 Route::group(['middleware' => ['auth']], function () {
+  Route::resource('pasien', 'PasienController');
+
   Route::get('/home', 'HomeController@index')->name('home');
-  Route::resource('/agama', 'AgamaController');    
-  Route::resource('/provinsi','ProvinsiController');
+  Route::resource('/agama', 'AgamaController');
+  Route::resource('/provinsi', 'ProvinsiController');
   Route::get('/provinsi/{provinsi}/kota', 'ProvinsiController@kota')->name('provinsi.kota');
-  Route::resource('/kota','KotaController')->parameters([
+  Route::resource('/kota', 'KotaController')->parameters([
     'kota' => 'kota'
   ]);
   Route::get('/kota/{kota}/kecamatan', 'KecamatanController@kecamatan')->name('kota.kecamatan');
   Route::resource('/kecamatan', 'KecamatanController');
   Route::resource('/kelurahan', 'KelurahanController');
   Route::get('/kecamatan/{kecamatan}/kelurahan', 'KecamatanController@kelurahan')
-        ->name('kecamatan.kelurahan');
+    ->name('kecamatan.kelurahan');
   Route::resource('/bahasa', 'BahasaController');
   Route::resource('/pendidikan', 'PendidikanController');
   Route::resource('/statusnikah', 'StatusNikahController');
   Route::resource('/suku', 'SukuController');
-  
+
   Route::get('registrasi', function () {
     return view('registrasi/index');
   })->name('registrasi');
-
 });

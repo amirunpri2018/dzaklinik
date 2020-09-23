@@ -8,6 +8,11 @@ class Pasien extends Model
 {
     //
     protected $table = "pasien";
+    protected $casts = [
+        'nomor_rekam_medik' => 'string',
+        'nik' => 'string',
+        'tanggal_lahir' => 'date'
+    ];
 
     public function provinsi()
     {

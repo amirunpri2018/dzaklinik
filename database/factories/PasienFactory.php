@@ -17,9 +17,9 @@ use Faker\Generator as Faker;
 $factory->define(Pasien::class, function (Faker $faker) {
     return [
         //
-        'nomor_rekam_medik' => $faker->randomDigit,
+        'nomor_rekam_medik' => $faker->lexify(),
         'nama_pasien' => $faker->name(),
-        'nik' => $faker->randomDigit,
+        'nik' => $faker->lexify(),
         'tempat_lahir' => $faker->name(),
         'tanggal_lahir' => $faker->date('Y-m-d'),
         'jenis_kelamin' => $faker->randomElement(['l', 'p']),

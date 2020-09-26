@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Form, Row, Col, Container, Button, Card } from "react-bootstrap";
+import {
+    Form,
+    Row,
+    Col,
+    Container,
+    Button,
+    Card,
+    Alert
+} from "react-bootstrap";
 import Axios from "axios";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,6 +25,7 @@ class CreatePasien extends Component {
             dataKota: [],
             dataKecamatan: [],
             dataKelurahan: [],
+            nomor_rekam_medik: "",
             nik: "",
             nama_pasien: "",
             tempat_lahir: "",
@@ -34,7 +43,8 @@ class CreatePasien extends Component {
             alamat: "",
             rtrw: "",
             kodepos: "",
-            email: ""
+            email: "",
+            errors: {}
         };
     }
 
@@ -75,6 +85,18 @@ class CreatePasien extends Component {
             });
         });
     }
+
+    formSubmitHandler = e => {
+        e.preventDefault();
+        Axios.post("/pasien", {})
+            .then(response => {
+                console.log("a");
+                console.log(response);
+            })
+            .catch(err => {
+                this.setState({ errors: err.response.data.errors });
+            });
+    };
 
     tanggalLahirChangeHander = date => {
         this.setState({ tanggal_lahir: date });
@@ -157,9 +179,23 @@ class CreatePasien extends Component {
             </option>
         ));
 
+        const { errors } = this.state;
+        let alert = null;
+        if (Object.keys(errors).length != 0) {
+            alert = (
+                <Alert variant="danger" dismissible>
+                    <ul>
+                        {Object.keys(errors).map((obj, i) => (
+                            <li key={i}>{errors[obj].join(",")}</li>
+                        ))}
+                    </ul>
+                </Alert>
+            );
+        }
+
         return (
             <Container className="m-2">
-                <Form>
+                <Form onSubmit={this.formSubmitHandler}>
                     <Card>
                         <Card.Body>
                             <Form.Group as={Row}>
@@ -171,6 +207,7 @@ class CreatePasien extends Component {
                                         type="text"
                                         placeholder="Akan di isi Oleh Sistem"
                                         id="no_rekam_medik"
+                                        value={this.state.nomor_rekam_medik}
                                         disabled
                                     />
                                 </Col>
@@ -496,10 +533,11 @@ class CreatePasien extends Component {
                             </fieldset>
                         </Card.Body>
                         <Card.Footer>
+                            {alert}
                             <Button
                                 variant="primary"
                                 className="float-right"
-                                onClick={() => console.log(this.state)}
+                                type="submit"
                             >
                                 Simpan
                             </Button>

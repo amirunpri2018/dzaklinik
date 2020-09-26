@@ -23,8 +23,8 @@ Route::get('/', function () {
 
 
 Route::group(['middleware' => ['auth']], function () {
-  Route::resource('pasien', 'PasienController');
 
+  Route::resource('pasien', 'PasienController');
   Route::get('/home', 'HomeController@index')->name('home');
   Route::resource('/agama', 'AgamaController');
   Route::resource('/provinsi', 'ProvinsiController');

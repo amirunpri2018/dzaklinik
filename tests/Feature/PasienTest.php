@@ -233,7 +233,7 @@ class PasienTest extends TestCase
 
         $pasien = factory(Pasien::class)->raw(['user_id' => $user->id]);
 
-        $result = $this->post(route('pasien.store'), $pasien);
+        $result = $this->postJson(route('pasien.store'), $pasien);
 
         $result->assertStatus(200);
 

@@ -12,6 +12,20 @@ import Axios from "axios";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+const TanggalLahirInput = ({ value, onClick, errors }) => (
+    <Form.Group>
+        <Form.Control
+            type="text"
+            placeholder="Tanggal Lahir"
+            id="tanggal_lahir"
+            value={value}
+            onClick={onClick}
+            isInvalid={!!errors}
+        />
+        <Form.Control.Feedback type="invalid">{errors}</Form.Control.Feedback>
+    </Form.Group>
+);
+
 class CreatePasien extends Component {
     constructor(props) {
         super(props);
@@ -88,7 +102,14 @@ class CreatePasien extends Component {
 
     formSubmitHandler = e => {
         e.preventDefault();
-        Axios.post("/pasien", {})
+        const pasien = {
+            nik: this.state.nik,
+            nama: this.state.nama,
+            jenis_kelamin: this.state.jenis_kelamin,
+            tempat_lahir: this.state.tempat_lahir,
+            tanggal_lahir: this.state.tanggal_lahir
+        };
+        Axios.post("/pasien", pasien)
             .then(response => {
                 console.log("a");
                 console.log(response);
@@ -222,7 +243,11 @@ class CreatePasien extends Component {
                                         name="nik"
                                         onChange={this.inputChangedHandler}
                                         value={this.state.nik}
+                                        isInvalid={!!errors["nik"]}
                                     />
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors["nik"]}
+                                    </Form.Control.Feedback>
                                 </Col>
                             </Form.Group>
                             <Form.Group as={Row}>
@@ -237,7 +262,11 @@ class CreatePasien extends Component {
                                         name="nama_pasien"
                                         onChange={this.inputChangedHandler}
                                         value={this.state.nama_pasien}
+                                        isInvalid={!!errors["nama_pasien"]}
                                     />
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors["nama_pasien"]}
+                                    </Form.Control.Feedback>
                                 </Col>
                                 <Form.Label column sm={2}>
                                     Jenis Kelamin
@@ -256,6 +285,8 @@ class CreatePasien extends Component {
                                                 ? true
                                                 : false
                                         }
+                                        isInvalid={!!errors["jenis_kelamin"]}
+                                        feedback={errors["jenis_kelamin"]}
                                     />
                                     <Form.Check
                                         inline
@@ -270,6 +301,8 @@ class CreatePasien extends Component {
                                                 ? true
                                                 : false
                                         }
+                                        isInvalid={!!errors["jenis_kelamin"]}
+                                        feedback={errors["jenis_kelamin"]}
                                     />
                                 </Col>
                             </Form.Group>
@@ -285,7 +318,11 @@ class CreatePasien extends Component {
                                         name="tempat_lahir"
                                         onChange={this.inputChangedHandler}
                                         value={this.state.tempat_lahir}
+                                        isInvalid={!!errors["tempat_lahir"]}
                                     />
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors["tempat_lahir"]}
+                                    </Form.Control.Feedback>
                                 </Col>
                                 <Form.Label column sm={2}>
                                     Tanggal Lahir
@@ -300,6 +337,12 @@ class CreatePasien extends Component {
                                         showYearDropdown
                                         dateFormat="dd-MM-yyyy"
                                         dropdownMode="select"
+                                        customInput={
+                                            <TanggalLahirInput
+                                                value={this.state.tanggal_lahir}
+                                                errors={errors["tanggal_lahir"]}
+                                            />
+                                        }
                                     />
                                 </Col>
                             </Form.Group>

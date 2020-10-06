@@ -1,0 +1,20 @@
+version: "3"
+services:
+  app:
+    build:
+      context: ./dockerfile
+      dockerfile: Dockerfile
+    image: dzaklinik/nginxphp74:latest
+    networks:
+      - dzakliniknet
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 8816:80
+    working_dir: /var/www/html
+networks:
+  dzakliniknet:
+    driver: bridge
+volumes:
+  cachedata:
+    driver: local

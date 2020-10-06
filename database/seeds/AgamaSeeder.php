@@ -16,7 +16,7 @@ class AgamaSeeder extends Seeder
         $agama = ['islam', 'Protestan', 'Katolik', 'Hindhu', 'Buddha', 'Kong Hu Cu', 'Kepercayaan'];
 
         foreach ($agama as $ag) {
-            factory(Agama::class)->create([
+            Agama::insert([
                 'nama_agama' => $ag
             ]);
         }

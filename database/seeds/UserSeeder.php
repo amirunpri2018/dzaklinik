@@ -14,8 +14,8 @@ class UserSeeder extends Seeder
     {
         //
         factory(User::class)->create([
-        	'username' => 'admin',
-        	'name' => 'admin'
+            'username' => 'admin',
+            'name' => 'admin'
         ]);
     }
 }

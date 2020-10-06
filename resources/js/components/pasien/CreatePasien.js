@@ -10,16 +10,18 @@ import {
 } from "react-bootstrap";
 import Axios from "axios";
 import ReactDatePicker from "react-datepicker";
+import Select from "react-select";
 import "react-datepicker/dist/react-datepicker.css";
 
-const TanggalLahirInput = ({ value, onClick, errors }) => (
+const TanggalLahirInput = ({ value, onClick, onChange, errors }) => (
     <Form.Group>
         <Form.Control
             type="text"
             placeholder="Tanggal Lahir"
-            id="tanggal_lahir"
+            name="tanggal_lahir"
             value={value}
             onClick={onClick}
+            onChange={onChange}
             isInvalid={!!errors}
         />
         <Form.Control.Feedback type="invalid">{errors}</Form.Control.Feedback>
@@ -107,11 +109,11 @@ class CreatePasien extends Component {
             nama: this.state.nama,
             jenis_kelamin: this.state.jenis_kelamin,
             tempat_lahir: this.state.tempat_lahir,
-            tanggal_lahir: this.state.tanggal_lahir
+            tanggal_lahir: this.state.tanggal_lahir,
+            agama_id: this.state.agama_id
         };
         Axios.post("/pasien", pasien)
             .then(response => {
-                console.log("a");
                 console.log(response);
             })
             .catch(err => {
@@ -145,6 +147,11 @@ class CreatePasien extends Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
+    agamaChangedHandler = item => {
+        console.log(item);
+        this.setState({ agama_id: item.value });
+    };
+
     render() {
         const statusNikahOption = this.state.dataStatus.map(item => (
             <option value={item.id} key={item.id}>
@@ -152,11 +159,16 @@ class CreatePasien extends Component {
             </option>
         ));
 
-        const agamaOption = this.state.dataAgama.map(item => (
-            <option value={item.id} key={item.id}>
-                {item.agama}
-            </option>
-        ));
+        // const agamaOption = this.state.dataAgama.map(item => (
+        //     <option value={item.id} key={item.id}>
+        //         {item.agama}
+        //     </option>
+        // ));
+
+        const agamaOption = this.state.dataAgama.map(item => ({
+            value: item.id,
+            label: item.agama
+        }));
 
         const bahasaOption = this.state.dataBahasa.map(item => (
             <option value={item.id} key={item.id}>
@@ -339,7 +351,6 @@ class CreatePasien extends Component {
                                         dropdownMode="select"
                                         customInput={
                                             <TanggalLahirInput
-                                                value={this.state.tanggal_lahir}
                                                 errors={errors["tanggal_lahir"]}
                                             />
                                         }
@@ -366,7 +377,13 @@ class CreatePasien extends Component {
                                     Agama
                                 </Form.Label>
                                 <Col sm={4}>
-                                    <Form.Control
+                                    <Select
+                                        options={agamaOption}
+                                        name="agama_id"
+                                        value={this.state.agama_id}
+                                        onChange={this.agamaChangedHandler}
+                                    />
+                                    {/* <Form.Control
                                         as="select"
                                         name="agama_id"
                                         id="agama_id"
@@ -375,7 +392,7 @@ class CreatePasien extends Component {
                                     >
                                         <option>Pilih Agama</option>
                                         {agamaOption}
-                                    </Form.Control>
+                                    </Form.Control> */}
                                 </Col>
                             </Form.Group>
 

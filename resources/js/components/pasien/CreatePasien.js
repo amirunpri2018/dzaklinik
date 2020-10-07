@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import Axios from "axios";
 import ReactDatePicker from "react-datepicker";
-import Select from "react-select";
+import Select, { components } from "react-select";
 import "react-datepicker/dist/react-datepicker.css";
 
 const TanggalLahirInput = ({ value, onClick, onChange, errors }) => (
@@ -27,6 +27,21 @@ const TanggalLahirInput = ({ value, onClick, onChange, errors }) => (
         <Form.Control.Feedback type="invalid">{errors}</Form.Control.Feedback>
     </Form.Group>
 );
+
+const ControlComponent = props => {
+    return (
+        <Form.Group>
+            <Form.Control
+                type="hidden"
+                isInvalid={!!props.selectProps.errors}
+            />
+            <components.Control {...props} />
+            <Form.Control.Feedback type="invalid">
+                {props.selectProps.errors}
+            </Form.Control.Feedback>
+        </Form.Group>
+    );
+};
 
 class CreatePasien extends Component {
     constructor(props) {
@@ -125,22 +140,29 @@ class CreatePasien extends Component {
         this.setState({ tanggal_lahir: date });
     };
 
-    provinsiChangedHandler = e => {
-        Axios.get(`provinsi/${e.target.value}/kota`).then(response => {
+    provinsiChangedHandler = item => {
+        this.setState({ provinsi_id: item });
+        Axios.get(`provinsi/${item.value}/kota`).then(response => {
             this.setState({ dataKota: response.data.data.kota });
         });
     };
 
-    kotaChangedHandler = e => {
-        Axios.get(`kota/${e.target.value}/kecamatan`).then(response => {
+    kotaChangedHandler = item => {
+        this.setState({ kota_id: item });
+        Axios.get(`kota/${item.value}/kecamatan`).then(response => {
             this.setState({ dataKecamatan: response.data.data.kecamatan });
         });
     };
 
-    kecamatanChangedHandler = e => {
-        Axios.get(`kecamatan/${e.target.value}/kelurahan`).then(response => {
+    kecamatanChangedHandler = item => {
+        this.setState({ kecamatan_id: item });
+        Axios.get(`kecamatan/${item.value}/kelurahan`).then(response => {
             this.setState({ dataKelurahan: response.data.data.kelurahan });
         });
+    };
+
+    kelurahanChangedHandler = item => {
+        this.setState({ kelurahan_id: item });
     };
 
     inputChangedHandler = e => {
@@ -148,69 +170,70 @@ class CreatePasien extends Component {
     };
 
     agamaChangedHandler = item => {
-        console.log(item);
-        this.setState({ agama_id: item.value });
+        this.setState({ agama_id: item });
+    };
+
+    statusNikahChangedHandler = item => {
+        this.setState({ status_nikah_id: item });
+    };
+
+    pendidikanChangedHandler = item => {
+        this.setState({ pendidikan_id: item });
+    };
+
+    sukuChangedHandler = item => {
+        this.setState({ suku_id: item });
+    };
+
+    bahasaChangedHandler = item => {
+        this.setState({ bahasa_id: item });
     };
 
     render() {
-        const statusNikahOption = this.state.dataStatus.map(item => (
-            <option value={item.id} key={item.id}>
-                {item.status}
-            </option>
-        ));
-
-        // const agamaOption = this.state.dataAgama.map(item => (
-        //     <option value={item.id} key={item.id}>
-        //         {item.agama}
-        //     </option>
-        // ));
+        const statusNikahOption = this.state.dataStatus.map(item => ({
+            value: item.id,
+            label: item.status
+        }));
 
         const agamaOption = this.state.dataAgama.map(item => ({
             value: item.id,
             label: item.agama
         }));
 
-        const bahasaOption = this.state.dataBahasa.map(item => (
-            <option value={item.id} key={item.id}>
-                {item.bahasa}
-            </option>
-        ));
+        const bahasaOption = this.state.dataBahasa.map(item => ({
+            value: item.id,
+            label: item.bahasa
+        }));
 
-        const pendidikanOption = this.state.dataPendidikan.map(item => (
-            <option value={item.id} key={item.id}>
-                {item.pendidikan}
-            </option>
-        ));
+        const pendidikanOption = this.state.dataPendidikan.map(item => ({
+            value: item.id,
+            label: item.pendidikan
+        }));
 
-        const sukuOption = this.state.dataSuku.map(item => (
-            <option value={item.id} key={item.id}>
-                {item.suku}
-            </option>
-        ));
+        const sukuOption = this.state.dataSuku.map(item => ({
+            value: item.id,
+            label: item.suku
+        }));
 
-        const provinsiOption = this.state.dataProvinsi.map(item => (
-            <option value={item.id} key={item.id}>
-                {item.provinsi}
-            </option>
-        ));
+        const provinsiOption = this.state.dataProvinsi.map(item => ({
+            value: item.id,
+            label: item.provinsi
+        }));
 
-        const kotaOption = this.state.dataKota.map(item => (
-            <option value={item.id} key={item.id}>
-                {item.kota}
-            </option>
-        ));
+        const kotaOption = this.state.dataKota.map(item => ({
+            value: item.id,
+            label: item.kota
+        }));
 
-        const kecamatanOption = this.state.dataKecamatan.map(item => (
-            <option value={item.id} key={item.id}>
-                {item.kecamatan}
-            </option>
-        ));
+        const kecamatanOption = this.state.dataKecamatan.map(item => ({
+            value: item.id,
+            label: item.kecamatan
+        }));
 
-        const kelurahanOption = this.state.dataKelurahan.map(item => (
-            <option value={item.id} key={item.id}>
-                {item.kelurahan}
-            </option>
-        ));
+        const kelurahanOption = this.state.dataKelurahan.map(item => ({
+            value: item.id,
+            label: item.kelurahan
+        }));
 
         const { errors } = this.state;
         let alert = null;
@@ -362,16 +385,18 @@ class CreatePasien extends Component {
                                     Status
                                 </Form.Label>
                                 <Col sm={4}>
-                                    <Form.Control
-                                        as="select"
-                                        id="status_id"
+                                    <Select
+                                        options={statusNikahOption}
                                         name="status_nikah_id"
-                                        onChange={this.inputChangedHandler}
                                         value={this.state.status_nikah_id}
-                                    >
-                                        <option>Pilih Status</option>
-                                        {statusNikahOption}
-                                    </Form.Control>
+                                        errors={errors["status_nikah_id"]}
+                                        onChange={
+                                            this.statusNikahChangedHandler
+                                        }
+                                        components={{
+                                            Control: ControlComponent
+                                        }}
+                                    />
                                 </Col>
                                 <Form.Label column sm={2}>
                                     Agama
@@ -382,17 +407,11 @@ class CreatePasien extends Component {
                                         name="agama_id"
                                         value={this.state.agama_id}
                                         onChange={this.agamaChangedHandler}
+                                        errors={errors["agama"]}
+                                        components={{
+                                            Control: ControlComponent
+                                        }}
                                     />
-                                    {/* <Form.Control
-                                        as="select"
-                                        name="agama_id"
-                                        id="agama_id"
-                                        value={this.state.agama_id}
-                                        onChange={this.inputChangedHandler}
-                                    >
-                                        <option>Pilih Agama</option>
-                                        {agamaOption}
-                                    </Form.Control> */}
                                 </Col>
                             </Form.Group>
 
@@ -416,16 +435,16 @@ class CreatePasien extends Component {
                                     Pendidikan
                                 </Form.Label>
                                 <Col sm={4}>
-                                    <Form.Control
-                                        as="select"
-                                        id="pendidikan_id"
+                                    <Select
+                                        options={pendidikanOption}
                                         name="pendidikan_id"
                                         value={this.state.pendidikan_id}
-                                        onChange={this.inputChangedHandler}
-                                    >
-                                        <option>Pilih Pendidikan</option>
-                                        {pendidikanOption}
-                                    </Form.Control>
+                                        errors={errors["pendidikan_id"]}
+                                        onChange={this.pendidikanChangedHandler}
+                                        components={{
+                                            Control: ControlComponent
+                                        }}
+                                    />
                                 </Col>
                             </Form.Group>
 
@@ -434,31 +453,31 @@ class CreatePasien extends Component {
                                     Suku
                                 </Form.Label>
                                 <Col sm={4}>
-                                    <Form.Control
-                                        as="select"
-                                        id="suku_id"
+                                    <Select
+                                        options={sukuOption}
                                         name="suku_id"
                                         value={this.state.suku_id}
-                                        onChange={this.inputChangedHandler}
-                                    >
-                                        <option value="">Pilih Suku</option>
-                                        {sukuOption}
-                                    </Form.Control>
+                                        errors={errors["suku_id"]}
+                                        onChange={this.sukuChangedHandler}
+                                        components={{
+                                            Control: ControlComponent
+                                        }}
+                                    />
                                 </Col>
                                 <Form.Label column sm={2}>
                                     Bahasa
                                 </Form.Label>
                                 <Col sm={4}>
-                                    <Form.Control
-                                        as="select"
-                                        id="bahasa_id"
+                                    <Select
+                                        options={bahasaOption}
                                         name="bahasa_id"
                                         value={this.state.bahasa_id}
-                                        onChange={this.inputChangedHandler}
-                                    >
-                                        <option>Pilih Bahasa</option>
-                                        {bahasaOption}
-                                    </Form.Control>
+                                        errors={errors["bahasa_id"]}
+                                        onChange={this.bahasaChangedHandler}
+                                        components={{
+                                            Control: ControlComponent
+                                        }}
+                                    />
                                 </Col>
                             </Form.Group>
 
@@ -471,37 +490,33 @@ class CreatePasien extends Component {
                                         Provinsi
                                     </Form.Label>
                                     <Col sm={4}>
-                                        <Form.Control
-                                            as="select"
-                                            id="provinsi_id"
+                                        <Select
+                                            options={provinsiOption}
                                             name="provinsi_id"
                                             value={this.state.provinsi_id}
-                                            onChange={e => {
-                                                this.provinsiChangedHandler(e);
-                                                this.inputChangedHandler(e);
+                                            errors={errors["provinsi_id"]}
+                                            onChange={
+                                                this.provinsiChangedHandler
+                                            }
+                                            components={{
+                                                Control: ControlComponent
                                             }}
-                                        >
-                                            <option>Pilih Provinsi</option>
-                                            {provinsiOption}
-                                        </Form.Control>
+                                        />
                                     </Col>
                                     <Form.Label column sm={2}>
                                         Kota
                                     </Form.Label>
                                     <Col sm={4}>
-                                        <Form.Control
-                                            as="select"
-                                            id="kota_id"
+                                        <Select
+                                            options={kotaOption}
                                             name="kota_id"
                                             value={this.state.kota_id}
-                                            onChange={e => {
-                                                this.kotaChangedHandler(e);
-                                                this.inputChangedHandler(e);
+                                            errors={errors["kota_id"]}
+                                            onChange={this.kotaChangedHandler}
+                                            components={{
+                                                Control: ControlComponent
                                             }}
-                                        >
-                                            <option>Pilih Kota</option>
-                                            {kotaOption}
-                                        </Form.Control>
+                                        />
                                     </Col>
                                 </Form.Group>
 
@@ -510,34 +525,35 @@ class CreatePasien extends Component {
                                         Kecamatan
                                     </Form.Label>
                                     <Col sm={4}>
-                                        <Form.Control
-                                            as="select"
-                                            id="kecamatan_id"
+                                        <Select
+                                            options={kecamatanOption}
                                             name="kecamatan_id"
                                             value={this.state.kecamatan_id}
-                                            onChange={e => {
-                                                this.kecamatanChangedHandler(e);
-                                                this.inputChangedHandler(e);
+                                            errors={errors["kecamatan_id"]}
+                                            onChange={
+                                                this.kecamatanChangedHandler
+                                            }
+                                            components={{
+                                                Control: ControlComponent
                                             }}
-                                        >
-                                            <option>Pilih Kecamatan</option>
-                                            {kecamatanOption}
-                                        </Form.Control>
+                                        />
                                     </Col>
                                     <Form.Label column sm={2}>
                                         Kelurahan
                                     </Form.Label>
                                     <Col sm={4}>
-                                        <Form.Control
-                                            as="select"
-                                            id="kelurahan_id"
+                                        <Select
+                                            options={kelurahanOption}
                                             name="kelurahan_id"
                                             value={this.state.kelurahan_id}
-                                            onChange={this.inputChangedHandler}
-                                        >
-                                            <option>Pilih Kelurahan</option>
-                                            {kelurahanOption}
-                                        </Form.Control>
+                                            errors={errors["kelurahan_id"]}
+                                            onChange={
+                                                this.kelurahanChangedHandler
+                                            }
+                                            components={{
+                                                Control: ControlComponent
+                                            }}
+                                        />
                                     </Col>
                                 </Form.Group>
 

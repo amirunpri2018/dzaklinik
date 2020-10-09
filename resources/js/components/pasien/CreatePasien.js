@@ -121,12 +121,26 @@ class CreatePasien extends Component {
         e.preventDefault();
         const pasien = {
             nik: this.state.nik,
-            nama: this.state.nama,
+            nama_pasien: this.state.nama_pasien,
             jenis_kelamin: this.state.jenis_kelamin,
             tempat_lahir: this.state.tempat_lahir,
             tanggal_lahir: this.state.tanggal_lahir,
-            agama_id: this.state.agama_id
+            status_nikah_id: this.state.status_nikah_id?.value,
+            agama_id: this.state.agama_id?.value,
+            warga_negara: this.state.warga_negara,
+            pendidikan_id: this.state.pendidikan_id?.value,
+            suku_id: this.state.suku_id?.value,
+            bahasa_id: this.state.bahasa_id?.value,
+            provinsi_id: this.state.provinsi_id?.value,
+            kota_id: this.state.kota_id?.value,
+            kecamatan_id: this.state.kecamatan_id?.value,
+            kelurahan_id: this.state.kelurahan_id?.value,
+            jalan: this.state.jalan,
+            rtrw: this.state.rtrw,
+            kodepos: this.state.kodepos,
+            email: this.state.email
         };
+
         Axios.post("/pasien", pasien)
             .then(response => {
                 console.log(response);

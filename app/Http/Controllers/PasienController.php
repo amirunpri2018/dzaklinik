@@ -60,7 +60,7 @@ class PasienController extends Controller
         ]);
         //
         $pasien = new Pasien();
-        $pasien->nomor_rekam_medik = $request->nomor_rekam_medik;
+        $pasien->nomor_rekam_medik = 123;
         $pasien->nik = $request->nik;
         $pasien->nama_pasien = $request->nama_pasien;
         $pasien->tempat_lahir = $request->tempat_lahir;
@@ -83,6 +83,8 @@ class PasienController extends Controller
         $pasien->alergi = $request->alergi;
 
         $pasien->save();
+
+        return $pasien->toJson();
     }
 
     /**

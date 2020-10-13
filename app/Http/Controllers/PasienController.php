@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Pasien as ResourcesPasien;
 use App\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +61,7 @@ class PasienController extends Controller
         ]);
         //
         $pasien = new Pasien();
-        $pasien->nomor_rekam_medik = 123;
+        $pasien->nomor_rekam_medik = $request->nomor_rekam_medik;
         $pasien->nik = $request->nik;
         $pasien->nama_pasien = $request->nama_pasien;
         $pasien->tempat_lahir = $request->tempat_lahir;
@@ -84,7 +85,7 @@ class PasienController extends Controller
 
         $pasien->save();
 
-        return $pasien->toJson();
+        return (new ResourcesPasien($pasien))->response()->setStatusCode(201);
     }
 
     /**

@@ -17,7 +17,6 @@ use Faker\Generator as Faker;
 $factory->define(Pasien::class, function (Faker $faker) {
     return [
         //
-        'nomor_rekam_medik' => $faker->lexify(),
         'nama_pasien' => $faker->name(),
         'nik' => $faker->lexify(),
         'tempat_lahir' => $faker->name(),

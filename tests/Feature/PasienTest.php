@@ -102,7 +102,7 @@ class PasienTest extends TestCase
 
         $result = $this->post(route('pasien.store'), $pasien);
 
-        $result->assertStatus(200);
+        $result->assertStatus(201);
     }
 
     /** @test */
@@ -235,8 +235,26 @@ class PasienTest extends TestCase
 
         $result = $this->postJson(route('pasien.store'), $pasien);
 
-        $result->assertStatus(200);
+        $result->assertStatus(201);
 
         $this->assertDatabaseHas('pasien', $pasien);
+    }
+
+    /** @test */
+    public function it_return_json_response()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
+
+        $pasien = factory(Pasien::class)->make(['user_id' => $user->id]);
+
+        $result = $this->postJson(route('pasien.store'), $pasien->toArray());
+
+        $result->assertStatus(201)->assertJsonFragment([
+            'nik' => $pasien->nik,
+            'nama_pasien' => $pasien->nama_pasien,
+            'tempat_lahir' => $pasien->tempat_lahir,
+            'tanggal_lahir' => $pasien->tanggal_lahir,
+        ]);
     }
 }

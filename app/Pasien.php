@@ -14,6 +14,13 @@ class Pasien extends Model
         'tanggal_lahir' => 'date'
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($pasien) {
+            $pasien->nomor_rekam_medik = str_pad(Pasien::generateNoRekamMedis(), 6, '0', STR_PAD_LEFT);
+        });
+    }
+
     public function provinsi()
     {
         return $this->belongsTo(Provinsi::class);
@@ -72,5 +79,16 @@ class Pasien extends Model
     public function pasangan()
     {
         return $this->hasOne(PasienPasangan::class);
+    }
+
+    public static function generateNoRekamMedis(): int
+    {
+        $lastNoRekamMedik = static::max('nomor_rekam_medik');
+
+        if ($lastNoRekamMedik == null) {
+            return 1;
+        }
+
+        return intval($lastNoRekamMedik) + 1;
     }
 }

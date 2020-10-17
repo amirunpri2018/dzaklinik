@@ -28,10 +28,10 @@ class CreateRegister extends Component {
                     <Card.Body>
                         <Form>
                             <Form.Group className="row">
-                                <Form.Label sm={3} column>
+                                <Form.Label sm={4} column>
                                     Tanggal
                                 </Form.Label>
-                                <Col sm={9}>
+                                <Col sm={8}>
                                     <ReactDatePicker
                                         peekNextMonth
                                         showMonthDropdown
@@ -41,10 +41,10 @@ class CreateRegister extends Component {
                                 </Col>
                             </Form.Group>
                             <Form.Group className="row">
-                                <Form.Label sm={3} column>
-                                    No RM
+                                <Form.Label sm={4} column>
+                                    No Rm/Nik/Bpjs
                                 </Form.Label>
-                                <Col sm={9}>
+                                <Col sm={8}>
                                     <InputGroup>
                                         <Form.Control
                                             type="text"
@@ -70,6 +70,35 @@ class CreateRegister extends Component {
                                     </InputGroup>
                                 </Col>
                             </Form.Group>
+                            <Form.Group className="row">
+                                <Form.Label sm={4} column>
+                                    No BPJS
+                                </Form.Label>
+                                <Col sm={8}>
+                                    <InputGroup>
+                                        <Form.Control
+                                            type="text"
+                                            name="noBpjs"
+                                            id="noBpjs"
+                                            placeholder="No BPJS"
+                                        ></Form.Control>
+                                    </InputGroup>
+                                </Col>
+                            </Form.Group>
+                            <Form.Group className="row">
+                                <Form.Label sm={4} column>
+                                    Nama Pasien
+                                </Form.Label>
+                                <Col sm={8}>
+                                    <InputGroup>
+                                        <Form.Control
+                                            plaintext
+                                            readOnly
+                                            defaultValue="email@example.com"
+                                        />
+                                    </InputGroup>
+                                </Col>
+                            </Form.Group>
                         </Form>
                     </Card.Body>
                 </Card>
@@ -79,11 +108,11 @@ class CreateRegister extends Component {
                     onHide={this.hideModalHandler}
                     size="xl"
                 >
-                    <Modal.Header closeButton>
+                    <Modal.Header closeBsutton>
                         <Modal.Title>Tambah Pasien</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <TabPasien />
+                        <TabPasien hideModalHandler={this.hideModalHandler} />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button

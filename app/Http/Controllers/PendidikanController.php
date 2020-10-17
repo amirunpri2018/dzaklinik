@@ -17,7 +17,7 @@ class PendidikanController extends Controller
     public function index()
     {
         //
-        $pendidikan = Pendidikan::paginate(10);
+        $pendidikan = Pendidikan::all();
 
         return new PendidikanCollection($pendidikan);
     }

@@ -7,7 +7,9 @@ class TabPasien extends Component {
         return (
             <Tabs defaultActiveKey="pasien" id="tabPasien">
                 <Tab eventKey="pasien" title="Data Diri Pasien">
-                    <CreatePasien />
+                    <CreatePasien
+                        hideModalHandler={this.props.hideModalHandler}
+                    />
                 </Tab>
                 <Tab eventKey="pasanganPasien" title="Data Pasangan Pasien">
                     <div>Form Data pasangan pasien</div>

@@ -119,6 +119,7 @@ class CreatePasien extends Component {
 
     formSubmitHandler = e => {
         e.preventDefault();
+        console.log(this.state.warga_negara);
         const pasien = {
             nik: this.state.nik,
             nama_pasien: this.state.nama_pasien,
@@ -144,6 +145,11 @@ class CreatePasien extends Component {
         Axios.post("/pasien", pasien)
             .then(response => {
                 console.log(response);
+                const newPasien = response.data;
+                this.setState({
+                    nomor_rekam_medik: newPasien.nomor_rekam_medik
+                });
+                this.props.hideModalHandler();
             })
             .catch(err => {
                 this.setState({ errors: err.response.data.errors });
@@ -157,21 +163,21 @@ class CreatePasien extends Component {
     provinsiChangedHandler = item => {
         this.setState({ provinsi_id: item });
         Axios.get(`provinsi/${item.value}/kota`).then(response => {
-            this.setState({ dataKota: response.data.data.kota });
+            this.setState({ dataKota: response.data.kota });
         });
     };
 
     kotaChangedHandler = item => {
         this.setState({ kota_id: item });
         Axios.get(`kota/${item.value}/kecamatan`).then(response => {
-            this.setState({ dataKecamatan: response.data.data.kecamatan });
+            this.setState({ dataKecamatan: response.data.kecamatan });
         });
     };
 
     kecamatanChangedHandler = item => {
         this.setState({ kecamatan_id: item });
         Axios.get(`kecamatan/${item.value}/kelurahan`).then(response => {
-            this.setState({ dataKelurahan: response.data.data.kelurahan });
+            this.setState({ dataKelurahan: response.data.kelurahan });
         });
     };
 
@@ -276,7 +282,7 @@ class CreatePasien extends Component {
                                     <Form.Control
                                         type="text"
                                         placeholder="Akan di isi Oleh Sistem"
-                                        id="no_rekam_medik"
+                                        id="nomor_rekam_medik"
                                         value={this.state.nomor_rekam_medik}
                                         disabled
                                     />
@@ -439,11 +445,17 @@ class CreatePasien extends Component {
                                         id="warga_negara"
                                         name="warga_negara"
                                         value={this.state.warga_negara}
+                                        errors={errors["warga_negara"]}
                                         onChange={this.inputChangedHandler}
+                                        isInvalid={!!errors["warga_negara"]}
                                     >
+                                        <option value="">Pilih</option>
                                         <option value="wni">WNI</option>
                                         <option value="wna">WNA</option>
                                     </Form.Control>
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors["warga_negara"]}
+                                    </Form.Control.Feedback>
                                 </Col>
                                 <Form.Label column sm={2}>
                                     Pendidikan

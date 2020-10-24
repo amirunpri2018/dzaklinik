@@ -1,14 +1,46 @@
 import React, { Component } from "react";
 import TabPasien from "../pasien/TabPasien";
-import { Col, Card, Form, InputGroup, Button, Modal } from "react-bootstrap";
+import {
+    Col,
+    Card,
+    Form,
+    InputGroup,
+    Button,
+    Modal,
+    Row
+} from "react-bootstrap";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+const TanggalRegisterInput = ({ value, onClick, onChange, errors }) => (
+    <Form.Group>
+        <Form.Control
+            type="text"
+            placeholder="Tanggal Pendaftaran"
+            name="tanggal"
+            value={value}
+            onClick={onClick}
+            onChange={onChange}
+            isInvalid={!!errors}
+        />
+        <Form.Control.Feedback type="invalid">{errors}</Form.Control.Feedback>
+    </Form.Group>
+);
 
 class CreateRegister extends Component {
     constructor() {
         super();
         this.state = {
-            showModal: false
+            showModal: false,
+            search: "",
+            tanggal: new Date(),
+            nomor_rekam_medik: "",
+            nomor_bpjs: "",
+            nama_pasien: "",
+            jenis_pasien_id: "",
+            unit_id: "",
+            dokter_id: "",
+            errors: {}
         };
     }
 
@@ -20,7 +52,16 @@ class CreateRegister extends Component {
         this.setState({ showModal: false });
     };
 
+    inputChangedHandler = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
+
+    tanggalChangeHander = date => {
+        this.setState({ tanggal: date });
+    };
+
     render() {
+        const { errors } = this.state;
         return (
             <div>
                 <Card>
@@ -37,6 +78,15 @@ class CreateRegister extends Component {
                                         showMonthDropdown
                                         showYearDropdown
                                         dropdownMode="select"
+                                        selected={this.state.tanggal}
+                                        onChange={date =>
+                                            this.tanggalChangeHander(date)
+                                        }
+                                        customInput={
+                                            <TanggalRegisterInput
+                                                errors={errors["tanggal"]}
+                                            />
+                                        }
                                     />
                                 </Col>
                             </Form.Group>
@@ -48,9 +98,11 @@ class CreateRegister extends Component {
                                     <InputGroup>
                                         <Form.Control
                                             type="text"
-                                            name="noRekamMedik"
-                                            id="noRekamMedik"
-                                            placeholder="No Rekam Medik"
+                                            name="search"
+                                            id="search"
+                                            placeholder="No RM/NIK/BPJS"
+                                            value={this.state.search}
+                                            onChange={this.inputChangedHandler}
                                         ></Form.Control>
                                         <InputGroup.Append>
                                             <Button
@@ -78,9 +130,11 @@ class CreateRegister extends Component {
                                     <InputGroup>
                                         <Form.Control
                                             type="text"
-                                            name="noBpjs"
-                                            id="noBpjs"
+                                            name="nomor_bpjs"
+                                            id="nomor_bpjs"
                                             placeholder="No BPJS"
+                                            value={this.state.nomor_bpjs}
+                                            onChange={this.inputChangedHandler}
                                         ></Form.Control>
                                     </InputGroup>
                                 </Col>
@@ -94,11 +148,68 @@ class CreateRegister extends Component {
                                         <Form.Control
                                             plaintext
                                             readOnly
-                                            defaultValue="email@example.com"
+                                            defaultValue="-"
+                                            value={this.state.nama_pasien}
                                         />
                                     </InputGroup>
                                 </Col>
                             </Form.Group>
+                            <Form.Group className="row">
+                                <Form.Label sm={4} column>
+                                    Jenis Bayar
+                                </Form.Label>
+                                <Col sm={8}>
+                                    <InputGroup>
+                                        <Form.Control
+                                            as="select"
+                                            name="jenisPasien"
+                                            id="jenisPasien"
+                                        ></Form.Control>
+                                    </InputGroup>
+                                </Col>
+                            </Form.Group>
+                            <Form.Group className="row">
+                                <Form.Label sm={4} column>
+                                    Poli Tujuan
+                                </Form.Label>
+                                <Col sm={8}>
+                                    <InputGroup>
+                                        <Form.Control
+                                            as="select"
+                                            name="poliTujuan"
+                                            id="poliTujuan"
+                                        ></Form.Control>
+                                    </InputGroup>
+                                </Col>
+                            </Form.Group>
+                            <Form.Group className="row">
+                                <Form.Label sm={4} column>
+                                    Dokter
+                                </Form.Label>
+                                <Col sm={8}>
+                                    <InputGroup>
+                                        <Form.Control
+                                            as="select"
+                                            name="dokter"
+                                            id="dokter"
+                                        ></Form.Control>
+                                    </InputGroup>
+                                </Col>
+                            </Form.Group>
+                            <Row sm={12} className="float-right">
+                                <Col>
+                                    <Button
+                                        variant="danger"
+                                        type="reset"
+                                        className="pr-2 mr-2"
+                                    >
+                                        Batal
+                                    </Button>
+                                    <Button variant="primary" type="submit">
+                                        Simpan
+                                    </Button>
+                                </Col>
+                            </Row>
                         </Form>
                     </Card.Body>
                 </Card>

@@ -119,7 +119,6 @@ class CreatePasien extends Component {
 
     formSubmitHandler = e => {
         e.preventDefault();
-        console.log(this.state.warga_negara);
         const pasien = {
             nik: this.state.nik,
             nama_pasien: this.state.nama_pasien,
